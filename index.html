@@ -1,0 +1,1402 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trợ Lý Ảo AI - Vùng Nông Sản Bình Mỹ (Củ Chi)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #1B5E20;      /* Green main */
+      --secondary: #4CAF50;    /* Green light */
+      --accent: #FDD835;       /* Yellow accent */
+      --bg-dark: #0D2111;      /* Dark green sidebar */
+      --bg-light: #F4F7F4;     /* Main background */
+      --card-bg: #FFFFFF;
+      --text: #2C3E50;
+      --border: #E0E0E0;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Be Vietnam Pro', sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-light);
+      color: var(--text);
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* ================= SIDEBAR ================= */
+    .sidebar {
+      width: 260px;
+      background-color: var(--bg-dark);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      box-shadow: 2px 0 10px rgba(0,0,0,0.15);
+    }
+
+    .sidebar-brand {
+      padding: 20px 15px;
+      text-align: center;
+      background: rgba(0, 0, 0, 0.25);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .sidebar-logo-container {
+      width: 100px;
+      height: 100px;
+      margin: 0 auto 10px auto;
+      border-radius: 50%;
+      background: #FFFFFF;
+      padding: 3px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid var(--secondary);
+      overflow: hidden;
+    }
+
+    .sidebar-logo-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+
+    .sidebar-brand h2 {
+      font-size: 15px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #fff;
+    }
+
+    .sidebar-brand p {
+      font-size: 11px;
+      color: var(--accent);
+      margin-top: 4px;
+      font-style: italic;
+      font-weight: 600;
+    }
+
+    .sidebar-menu {
+      list-style: none;
+      padding: 15px 0;
+      flex: 1;
+    }
+
+    .sidebar-menu li {
+      margin-bottom: 4px;
+    }
+
+    .sidebar-menu button {
+      width: 100%;
+      background: none;
+      border: none;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 20px;
+      color: #cfd8dc;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.2s ease;
+      border-left: 4px solid transparent;
+    }
+
+    .sidebar-menu button:hover,
+    .sidebar-menu button.active {
+      color: #ffffff;
+      background-color: rgba(76, 175, 80, 0.25);
+      border-left-color: var(--secondary);
+    }
+
+    .sidebar-menu button .menu-icon {
+      font-size: 18px;
+      width: 24px;
+      text-align: center;
+    }
+
+    /* ================= MAIN CONTENT ================= */
+    .main-wrapper {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      padding: 16px 25px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .header-mini-logo {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: #fff;
+      padding: 2px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      object-fit: cover;
+    }
+
+    header h1 {
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    header p.slogan {
+      font-size: 12px;
+      color: var(--accent);
+      font-style: italic;
+      font-weight: 600;
+    }
+
+    .status-badge {
+      background: rgba(255,255,255,0.2);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      background: #00E676;
+      border-radius: 50%;
+    }
+
+    .container {
+      max-width: 1200px;
+      width: 100%;
+      margin: 20px auto;
+      padding: 0 20px;
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+      animation: fadeIn 0.2s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ================= CARDS & UI ================= */
+    .card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      border: 1px solid var(--border);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 2px solid #f0f0f0;
+      padding-bottom: 12px;
+      margin-bottom: 15px;
+    }
+
+    .card-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Forms */
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: #444;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 9px 12px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 13px;
+      outline: none;
+      transition: border 0.2s;
+    }
+
+    .form-control:focus {
+      border-color: var(--secondary);
+    }
+
+    .form-control[readonly] {
+      background-color: #e9ecef;
+      color: #1B5E20;
+      font-weight: 700;
+      cursor: not-allowed;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-block;
+      padding: 9px 15px;
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 13px;
+      cursor: pointer;
+      text-align: center;
+      transition: background 0.2s;
+    }
+
+    .btn:hover { background-color: #124116; }
+    .btn-secondary { background-color: var(--secondary); }
+    .btn-secondary:hover { background-color: #3d8b40; }
+    .btn-outline { background: white; color: var(--primary); border: 1px solid var(--primary); }
+    .btn-outline:hover { background: #f0f7f0; }
+
+    /* Grids & Tables */
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
+
+    @media (max-width: 768px) {
+      body { flex-direction: column; }
+      .sidebar { width: 100%; }
+      .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    }
+
+    /* Badges */
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .badge-warning { background: #FFF3CD; color: #856404; }
+    .badge-success { background: #D4EDDA; color: #155724; }
+    .badge-info { background: #D1ECF1; color: #0C5460; }
+    .badge-shipping { background: #E1F5FE; color: #0288D1; }
+
+    /* Tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+
+    th, td {
+      padding: 10px 12px;
+      text-align: left;
+      font-size: 13px;
+      border-bottom: 1px solid #eee;
+      vertical-align: middle;
+    }
+
+    th {
+      background-color: #f8f9fa;
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    .table-input {
+      padding: 5px 8px;
+      font-size: 12px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      width: 140px;
+    }
+
+    .shipper-info {
+      font-size: 12px;
+      color: #155724;
+      font-weight: 600;
+    }
+    .shipper-phone {
+      font-size: 11px;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SIDEBAR TASKBAR BÊN HÔNG -->
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <div class="sidebar-logo-container">
+        <svg viewBox="0 0 200 200" class="sidebar-logo-img">
+          <circle cx="100" cy="100" r="98" fill="#ffffff"/>
+          <path d="M100,35 Q85,15 65,28 Q78,45 100,35 Z" fill="#4CAF50"/>
+          <path d="M100,35 Q115,15 135,28 Q122,45 100,35 Z" fill="#2E7D32"/>
+          <rect x="52" y="48" width="96" height="68" rx="30" fill="#F5F5F5" stroke="#1B5E20" stroke-width="5"/>
+          <rect x="38" y="68" width="14" height="28" rx="6" fill="#2E7D32"/>
+          <rect x="148" y="68" width="14" height="28" rx="6" fill="#2E7D32"/>
+          <rect x="64" y="58" width="72" height="42" rx="18" fill="#0D2111"/>
+          <path d="M76,80 Q86,68 96,80" stroke="#00E676" stroke-width="6" fill="none" stroke-linecap="round"/>
+          <path d="M104,80 Q114,68 124,80" stroke="#00E676" stroke-width="6" fill="none" stroke-linecap="round"/>
+          <path d="M62,118 C62,110 138,110 138,118 L145,160 L55,160 Z" fill="#E0E0E0" stroke="#1B5E20" stroke-width="4"/>
+          <path d="M70,135 Q100,115 130,135 Q100,165 70,135 Z" fill="#4CAF50"/>
+          <path d="M80,140 Q100,122 120,140 Q100,168 80,140 Z" fill="#1B5E20"/>
+          <path d="M88,145 Q100,130 112,145 Q100,170 88,145 Z" fill="#81C784"/>
+        </svg>
+      </div>
+      <h2>TRỢ LÝ ẢO AI</h2>
+      <p>"AI đồng hành - Nông sản vươn xa"</p>
+    </div>
+
+    <ul class="sidebar-menu">
+      <li>
+        <button class="active" onclick="switchTab('overview', this)">
+          <span class="menu-icon">📊</span> Tổng quan
+        </button>
+      </li>
+      <li>
+        <button onclick="switchTab('orders', this)">
+          <span class="menu-icon">📦</span> Đơn hàng
+        </button>
+      </li>
+      <li>
+        <button onclick="switchTab('farmers', this)">
+          <span class="menu-icon">👨‍🌾</span> Nông dân
+        </button>
+      </li>
+      <li>
+        <button onclick="switchTab('customers', this)">
+          <span class="menu-icon">👥</span> Khách hàng
+        </button>
+      </li>
+      <li>
+        <button onclick="switchTab('harvest', this)">
+          <span class="menu-icon">📅</span> Lịch thu hoạch
+        </button>
+      </li>
+    </ul>
+  </aside>
+
+  <!-- MAIN WRAPPER -->
+  <div class="main-wrapper">
+    <header>
+      <div class="header-left">
+        <svg viewBox="0 0 200 200" class="header-mini-logo">
+          <circle cx="100" cy="100" r="98" fill="#ffffff"/>
+          <path d="M100,35 Q85,15 65,28 Q78,45 100,35 Z" fill="#4CAF50"/>
+          <path d="M100,35 Q115,15 135,28 Q122,45 100,35 Z" fill="#2E7D32"/>
+          <rect x="52" y="48" width="96" height="68" rx="30" fill="#F5F5F5" stroke="#1B5E20" stroke-width="5"/>
+          <rect x="64" y="58" width="72" height="42" rx="18" fill="#0D2111"/>
+          <path d="M76,80 Q86,68 96,80" stroke="#00E676" stroke-width="6" fill="none" stroke-linecap="round"/>
+          <path d="M104,80 Q114,68 124,80" stroke="#00E676" stroke-width="6" fill="none" stroke-linecap="round"/>
+          <path d="M70,135 Q100,115 130,135 Q100,165 70,135 Z" fill="#4CAF50"/>
+        </svg>
+        <div>
+          <h1 id="page-heading">TỔNG QUAN HỆ THỐNG QUẢN LÝ HTX BÌNH MỸ</h1>
+          <p class="slogan">"AI đồng hành – Nông sản vươn xa | Từ vườn đến tay bạn!"</p>
+        </div>
+      </div>
+      <div class="status-badge">
+        <span class="status-dot"></span> AI Zalo Active
+      </div>
+    </header>
+
+    <div class="container">
+
+      <!-- TAB 1: TỔNG QUAN -->
+      <div id="tab-overview" class="tab-content active">
+        <div class="grid-3" style="margin-bottom: 20px;">
+          <div class="card" style="background:#e8f5e9;">
+            <div style="font-size:12px; color:#555;">Tổng Đơn Hàng</div>
+            <div style="font-size:26px; font-weight:700; color:var(--primary); margin:5px 0;" id="stat-orders-count">0</div>
+            <span class="badge badge-success">Cập nhật thực tế</span>
+          </div>
+          <div class="card" style="background:#fff3cd;">
+            <div style="font-size:12px; color:#555;">Nông Dân Cung Cấp</div>
+            <div style="font-size:26px; font-weight:700; color:#856404; margin:5px 0;" id="stat-farmers-count">0</div>
+            <span class="badge badge-warning">Vùng Bình Mỹ, Củ Chi</span>
+          </div>
+          <div class="card" style="background:#e0f2f1;">
+            <div style="font-size:12px; color:#555;">Khách Hàng Đã Đăng Ký</div>
+            <div style="font-size:26px; font-weight:700; color:#00695c; margin:5px 0;" id="stat-customers-count">0</div>
+            <span class="badge badge-info">Dữ liệu đã kết nối</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">📌 Đơn Hàng & Thông Tin Nhân Viên Giao Hàng Cho Khách</div>
+            <button class="btn btn-secondary" onclick="switchTab('orders', document.querySelectorAll('.sidebar-menu button')[1])">Quản lý đơn hàng</button>
+          </div>
+          <div style="overflow-x:auto;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Mã Đơn</th>
+                  <th>Khách Hàng</th>
+                  <th>SĐT</th>
+                  <th>Sản Phẩm</th>
+                  <th>SL</th>
+                  <th>Mã HTX</th>
+                  <th>Thông Tin Người Giao Hàng</th>
+                  <th>Trạng Thái</th>
+                </tr>
+              </thead>
+              <tbody id="overview-orders-tbody">
+                <!-- Javascript auto fill -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 2: QUẢN LÝ ĐƠN HÀNG -->
+      <div id="tab-orders" class="tab-content">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">📦 Danh Sách Đơn Hàng & Phân Hàng Giao Cho Khách</div>
+            <button class="btn btn-secondary" onclick="openNewOrderModal()">+ Tạo Đơn Hàng Mới</button>
+          </div>
+          <div style="overflow-x:auto;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Mã Đơn</th>
+                  <th>Khách Hàng</th>
+                  <th>SĐT & Địa Chỉ</th>
+                  <th>Sản Phẩm</th>
+                  <th>SL (kg)</th>
+                  <th>Mã HTX</th>
+                  <th>Phân Nhân Viên Giao Hàng</th>
+                  <th>Thông Tin SĐT Người Giao</th>
+                  <th>Trạng Thái</th>
+                  <th>Thao Tác</th>
+                </tr>
+              </thead>
+              <tbody id="orders-tbody">
+                <!-- Javascript auto fill -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- FORM TẠO ĐƠN HÀNG MỚI -->
+        <div class="card" id="new-order-card" style="display:none;">
+          <div class="card-header">
+            <div class="card-title">📝 Khách Hàng Đặt Hàng Mới</div>
+            <button class="btn btn-outline" onclick="closeNewOrderModal()">Đóng</button>
+          </div>
+          <form onsubmit="handleCustomerOrder(event)">
+            <div class="grid-2">
+              <div class="form-group">
+                <label>Họ và tên khách hàng (Không nhập chữ số)</label>
+                <input type="text" id="ord-customer-name" class="form-control" placeholder="Nhập họ và tên..." oninput="filterNameInput(this)" required>
+              </div>
+              <div class="form-group">
+                <label>Số điện thoại</label>
+                <input type="tel" id="ord-customer-phone" class="form-control" placeholder="Nhập số điện thoại..." required>
+              </div>
+            </div>
+
+            <div class="grid-2">
+              <div class="form-group">
+                <label>Sản phẩm</label>
+                <input type="text" id="ord-product" class="form-control" value="Rau muống Bình Mỹ (Củ Chi)" required>
+              </div>
+              <div class="form-group">
+                <label>Số lượng (kg)</label>
+                <input type="number" id="ord-qty" class="form-control" value="5" min="1" required>
+              </div>
+            </div>
+
+            <div class="grid-2">
+              <div class="form-group">
+                <label>Ngày giao hàng dự kiến</label>
+                <input type="date" id="ord-date" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label>Địa chỉ giao hàng</label>
+                <input type="text" id="ord-address" class="form-control" value="Xã Bình Mỹ, Huyện Củ Chi, TP.HCM" required>
+              </div>
+            </div>
+
+            <div class="grid-2">
+              <div class="form-group">
+                <label>Nhân viên giao hàng đảm nhận</label>
+                <input type="text" id="ord-shipper-name" class="form-control" value="Shipper HTX Bình Mỹ" placeholder="Tên nhân viên giao hàng...">
+              </div>
+              <div class="form-group">
+                <label>Thông tin / SĐT người giao hàng</label>
+                <input type="text" id="ord-shipper-phone" class="form-control" value="0912.345.678" placeholder="SĐT người giao...">
+              </div>
+            </div>
+
+            <button type="submit" class="btn" style="width:100%;">Thêm Vào Hệ Thống Dữ Liệu</button>
+          </form>
+        </div>
+
+        <!-- AI Matcher Result -->
+        <div class="card" id="ai-match-card" style="display:none; border:2px solid var(--primary);">
+          <div class="card-header">
+            <div class="card-title">🤖 Gợi Ý Nguồn Hàng Cho Đơn: <span id="match-order-id"></span></div>
+            <button class="btn btn-outline" onclick="document.getElementById('ai-match-card').style.display='none'">Đóng</button>
+          </div>
+          <p style="font-size:13px; color:#555; margin-bottom:12px;">Hệ thống AI tự động phân tích và quét nguồn hàng nông dân đủ sản lượng kèm <b>Mã HTX cố định</b>:</p>
+          <div id="ai-match-list"></div>
+        </div>
+      </div>
+
+      <!-- TAB 3: TỜ KHAI NÔNG DÂN -->
+      <div id="tab-farmers" class="tab-content">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">👨‍🌾 Quản Lý Nông Dân & Sản Lượng</div>
+          </div>
+
+          <form onsubmit="handleAddFarmer(event)" style="margin-bottom:20px;">
+            <div class="grid-2">
+              <div class="form-group">
+                <label>Họ tên nông dân (Không nhập chữ số)</label>
+                <input type="text" id="f-name" class="form-control" placeholder="Ví dụ: Nguyễn Văn Tám" oninput="filterNameInput(this)" required>
+              </div>
+              <div class="form-group">
+                <label>Số điện thoại</label>
+                <input type="text" id="f-phone" class="form-control" placeholder="0938 xxx xxx" required>
+              </div>
+            </div>
+            <div class="grid-2">
+              <div class="form-group">
+                <label>Địa chỉ vườn</label>
+                <input type="text" id="f-address" class="form-control" value="Xã Bình Mỹ, Huyện Củ Chi, TP.HCM" required>
+              </div>
+              <div class="form-group">
+                <label>Sản lượng rau muống hiện có (kg)</label>
+                <input type="number" id="f-qty" class="form-control" value="50" required>
+              </div>
+            </div>
+            <button type="submit" class="btn">+ Cập Nhật Dữ Liệu Nông Dân Về Hệ Thống</button>
+          </form>
+
+          <h4 style="margin-bottom:10px; color:var(--primary);">📋 Danh Sách Nông Dân Trong Hệ Thống</h4>
+          <div style="overflow-x:auto;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Mã ND</th>
+                  <th>Mã HTX Cố Định</th>
+                  <th>Họ và Tên</th>
+                  <th>Số Điện Thoại</th>
+                  <th>Địa Chỉ</th>
+                  <th>Sản Lượng Có Sẵn</th>
+                  <th>Thao Tác</th>
+                </tr>
+              </thead>
+              <tbody id="farmers-tbody">
+                <!-- Javascript auto fill -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 4: QUẢN LÝ KHÁCH HÀNG -->
+      <div id="tab-customers" class="tab-content">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">👥 Dữ Liệu Khách Hàng</div>
+          </div>
+
+          <form onsubmit="handleAddCustomer(event)" style="margin-bottom:20px;">
+            <div class="grid-2">
+              <div class="form-group">
+                <label>Họ và tên khách hàng (Không nhập chữ số)</label>
+                <input type="text" id="c-name" class="form-control" placeholder="Ví dụ: Lê Văn B" oninput="filterNameInput(this)" required>
+              </div>
+              <div class="form-group">
+                <label>Số điện thoại</label>
+                <input type="text" id="c-phone" class="form-control" placeholder="0909 xxx xxx" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Địa chỉ giao hàng</label>
+              <input type="text" id="c-address" class="form-control" placeholder="Xã Bình Mỹ, Huyện Củ Chi, TP.HCM" required>
+            </div>
+            <button type="submit" class="btn btn-secondary">+ Lưu Khách Hàng Vào Hệ Thống</button>
+          </form>
+
+          <div style="overflow-x:auto;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Mã KH</th>
+                  <th>Tên Khách Hàng</th>
+                  <th>Số Điện Thoại</th>
+                  <th>Địa Chỉ Giao Hàng</th>
+                  <th>Thao Tác</th>
+                </tr>
+              </thead>
+              <tbody id="customers-tbody">
+                <!-- Javascript auto fill -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 5: LỊCH THU HOẠCH -->
+      <div id="tab-harvest" class="tab-content">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">📅 Lịch Thu Hoạch Theo Đơn Đã Phân Bổ</div>
+            <button class="btn btn-secondary" onclick="openHarvestModal()">+ Thêm Lịch Thu Hoạch</button>
+          </div>
+          <div style="overflow-x:auto;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Mã Lịch</th>
+                  <th>Mã Đơn Hàng</th>
+                  <th>Mã HTX Phân Bổ</th>
+                  <th>Nông Dân Thu Hoạch</th>
+                  <th>Sản Phẩm</th>
+                  <th>Khối Lượng</th>
+                  <th>Ngày Thu Hoạch</th>
+                  <th>Nhân Viên Giao Hàng</th>
+                  <th>Thông Tin SĐT Giao Hàng</th>
+                  <th>Trạng Thái</th>
+                  <th>Thao Tác</th>
+                </tr>
+              </thead>
+              <tbody id="harvest-tbody">
+                <!-- Javascript auto fill -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- FORM TẠO LỊCH THU HOẠCH THỦ CÔNG -->
+        <div class="card" id="new-harvest-card" style="display:none;">
+          <div class="card-header">
+            <div class="card-title">📝 Tạo Lịch Thu Hoạch Thủ Công Cho HTX</div>
+            <button class="btn btn-outline" onclick="closeHarvestModal()">Đóng</button>
+          </div>
+          <form onsubmit="handleCreateHarvest(event)">
+            <div class="grid-2">
+              <div class="form-group">
+                <label>Mã Đơn Hàng (Chọn để tự điền)</label>
+                <select id="h-order-select" class="form-control" onchange="autoFillHarvestFormByOrder(this.value)"></select>
+              </div>
+              <div class="form-group">
+                <label>Nông dân thực hiện thu hoạch</label>
+                <select id="h-farmer-select" class="form-control" required onchange="autoFillHTXCodeByFarmer(this.value)"></select>
+              </div>
+            </div>
+
+            <div class="grid-2">
+              <div class="form-group">
+                <label>Mã HTX Phân Bổ (Tự động hiện đúng theo Nông Dân)</label>
+                <input type="text" id="h-htx" class="form-control" readonly placeholder="Chọn nông dân để hiện mã HTX...">
+              </div>
+              <div class="form-group">
+                <label>Sản phẩm</label>
+                <input type="text" id="h-product" class="form-control" value="Rau muống Bình Mỹ (Củ Chi)" required>
+              </div>
+            </div>
+
+            <div class="grid-2">
+              <div class="form-group">
+                <label>Khối lượng thu hoạch (kg)</label>
+                <input type="number" id="h-qty" class="form-control" value="5" min="1" required>
+              </div>
+              <div class="form-group">
+                <label>Ngày thu hoạch</label>
+                <input type="date" id="h-date" class="form-control" required>
+              </div>
+            </div>
+
+            <div class="grid-2">
+              <div class="form-group">
+                <label>Tên Nhân Viên Giao Hàng Cho Khách</label>
+                <input type="text" id="h-shipper-name" class="form-control" placeholder="VD: Shipper HTX Bình Mỹ" value="Shipper HTX Bình Mỹ">
+              </div>
+              <div class="form-group">
+                <label>Thông Tin / SĐT Nhân Viên Giao Hàng</label>
+                <input type="text" id="h-shipper-phone" class="form-control" placeholder="VD: 0912.345.678" value="0912.345.678">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Ghi chú trạng thái</label>
+              <select id="h-status" class="form-control">
+                <option value="Sẵn sàng giao">Sẵn sàng giao</option>
+                <option value="Đang thu hoạch">Đang thu hoạch</option>
+                <option value="Đang giao hàng">Đang giao hàng</option>
+                <option value="Đã hoàn tất">Đã hoàn tất</option>
+              </select>
+            </div>
+
+            <button type="submit" class="btn" style="width:100%;">Thêm Lịch Thu Hoạch & Đồng Bộ Dữ Liệu</button>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SCRIPT BẢO VỆ CHỐNG TRÙNG BIẾN & VALIDATE TÊN KHÔNG CHỨA SỐ -->
+  <script>
+    function filterNameInput(inputElem) {
+      inputElem.value = inputElem.value.replace(/[0-9]/g, '');
+    }
+
+    function isValidName(name) {
+      if(!name || name.trim() === "") return false;
+      return !/\d/.test(name);
+    }
+
+    (function() {
+      const defaultDB = {
+        KhachHang: [
+          { MaKH: "KH001", TenKH: "Nguyễn Văn A", SDT: "0901234567", DiaChi: "Xã Bình Mỹ, Huyện Củ Chi, TP.HCM" },
+          { MaKH: "KH002", TenKH: "Trần Thị C", SDT: "0908765432", DiaChi: "Quận 1, TP.HCM" },
+          { MaKH: "KH003", TenKH: "Lê Văn D", SDT: "0912334455", DiaChi: "Huyện Hóc Môn, TP.HCM" }
+        ],
+        NongDan: [
+          { MaND: "ND001", MaHTX: "HTX-BM01", TenND: "Nguyễn Văn Tám", SDT: "0938123456", DiaChi: "Ấp 3, Xã Bình Mỹ, Củ Chi", SanLuongAvailable: 100 },
+          { MaND: "ND002", MaHTX: "HTX-BM36", TenND: "Trần Thị Hạnh", SDT: "0938654321", DiaChi: "Ấp 1, Xã Bình Mỹ, Củ Chi", SanLuongAvailable: 50 },
+          { MaND: "ND003", MaHTX: "HTX-BM03", TenND: "Lê Văn Dũng", SDT: "0938999888", DiaChi: "Ấp 4, Xã Bình Mỹ, Củ Chi", SanLuongAvailable: 30 }
+        ],
+        DonHang: [
+          { MaDH: "BM0261", MaKH: "KH001", TenKH: "Nguyễn Văn A", SDT: "0901234567", SanPham: "Rau muống Bình Mỹ (Củ Chi)", SoLuong: 5, NgayGiao: "2026-10-10", MaHTX: "HTX-BM01", NguoiGiaoHang: "Shipper HTX Bình Mỹ", SdtShipper: "0912.345.678", TrangThai: "Sẵn sàng giao" },
+          { MaDH: "BM0262", MaKH: "KH002", TenKH: "Trần Thị C", SDT: "0908765432", SanPham: "Rau muống Bình Mỹ (Củ Chi)", SoLuong: 10, NgayGiao: "2026-10-11", MaHTX: "HTX-BM36", NguoiGiaoHang: "Shipper HTX Bình Mỹ", SdtShipper: "0912.345.678", TrangThai: "Đã hoàn tất" },
+          { MaDH: "BM0263", MaKH: "KH003", TenKH: "Lê Văn D", SDT: "0912334455", SanPham: "Rau muống Bình Mỹ (Củ Chi)", SoLuong: 3, NgayGiao: "2026-10-12", MaHTX: "-", NguoiGiaoHang: "-", SdtShipper: "-", TrangThai: "Mới tạo" }
+        ],
+        LichThuHoạch: [
+          { MaLich: "LTH001", MaDH: "BM0261", MaND: "ND001", MaHTX: "HTX-BM01", SanPham: "Rau muống Bình Mỹ (Củ Chi)", SoLuong: 5, NgayThuHoach: "2026-10-10", NguoiGiaoHang: "Shipper HTX Bình Mỹ", SdtShipper: "0912.345.678", GhiChu: "Sẵn sàng giao" }
+        ]
+      };
+
+      function getDB() {
+        const data = localStorage.getItem('BINH_MY_SQL_DB_NAME_VALIDATED');
+        if (!data) {
+          localStorage.setItem('BINH_MY_SQL_DB_NAME_VALIDATED', JSON.stringify(defaultDB));
+          return defaultDB;
+        }
+        return JSON.parse(data);
+      }
+
+      function saveDB(db) {
+        localStorage.setItem('BINH_MY_SQL_DB_NAME_VALIDATED', JSON.stringify(db));
+        renderAll();
+      }
+
+      function getOrAssignHTXCodeForFarmer(db, farmerObj) {
+        if(farmerObj.MaHTX && farmerObj.MaHTX !== '-') {
+          return farmerObj.MaHTX;
+        }
+        const usedCodes = new Set();
+        db.NongDan.forEach(f => { if(f.MaHTX && f.MaHTX !== '-') usedCodes.add(f.MaHTX); });
+        db.DonHang.forEach(d => { if(d.MaHTX && d.MaHTX !== '-') usedCodes.add(d.MaHTX); });
+
+        let counter = 1;
+        let newCode = "";
+        do {
+          newCode = "HTX-BM" + String(counter).padStart(2, '0');
+          counter++;
+        } while (usedCodes.has(newCode));
+
+        farmerObj.MaHTX = newCode;
+        return newCode;
+      }
+
+      window.switchTab = function(tabKey, btnElement) {
+        document.querySelectorAll('.sidebar-menu button').forEach(b => b.classList.remove('active'));
+        if(btnElement) btnElement.classList.add('active');
+
+        document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
+        const target = document.getElementById('tab-' + tabKey);
+        if(target) target.classList.add('active');
+
+        const headings = {
+          'overview': 'TỔNG QUAN HỆ THỐNG QUẢN LÝ HTX BÌNH MỸ',
+          'orders': 'QUẢN LÝ ĐƠN HÀNG RAU MUỐNG BÌNH MỸ',
+          'farmers': 'QUẢN LÝ NÔNG DÂN & SẢN LƯỢNG THU HOẠCH',
+          'customers': 'DỮ LIỆU KHÁCH HÀNG BÌNH MỸ',
+          'harvest': 'LỊCH THU HOẠCH NÔNG SẢN BÌNH MỸ'
+        };
+        if(headings[tabKey]) document.getElementById('page-heading').innerText = headings[tabKey];
+      };
+
+      function renderAll() {
+        const db = getDB();
+
+        document.getElementById('stat-orders-count').innerText = db.DonHang.length;
+        document.getElementById('stat-farmers-count').innerText = db.NongDan.length;
+        document.getElementById('stat-customers-count').innerText = db.KhachHang.length;
+
+        // Overview
+        const ovTbody = document.getElementById('overview-orders-tbody');
+        ovTbody.innerHTML = '';
+        db.DonHang.forEach(dh => {
+          const statusBadge = getStatusBadge(dh.TrangThai);
+          const shipperText = (dh.NguoiGiaoHang && dh.NguoiGiaoHang !== '-') 
+            ? `<span class="shipper-info">👤 ${dh.NguoiGiaoHang}</span><br><span class="shipper-phone">📞 ${dh.SdtShipper || 'Chưa cập nhật'}</span>`
+            : '<span style="color:#888;">Chưa phân công</span>';
+
+          ovTbody.innerHTML += `
+            <tr>
+              <td><b>${dh.MaDH}</b></td>
+              <td>${dh.TenKH || 'Khách hàng'}</td>
+              <td>${dh.SDT || '-'}</td>
+              <td>${dh.SanPham}</td>
+              <td>${dh.SoLuong} kg</td>
+              <td><b style="color:var(--primary);">${dh.MaHTX || '-'}</b></td>
+              <td>${shipperText}</td>
+              <td>${statusBadge}</td>
+            </tr>
+          `;
+        });
+
+        // Orders
+        const ordTbody = document.getElementById('orders-tbody');
+        ordTbody.innerHTML = '';
+        db.DonHang.forEach(dh => {
+          const maHTXDisplay = dh.MaHTX && dh.MaHTX !== '-' ? `<b style="color:var(--primary);">${dh.MaHTX}</b>` : '<span style="color:#888;">Chưa phân bổ</span>';
+          const statusBadge = getStatusBadge(dh.TrangThai);
+          
+          ordTbody.innerHTML += `
+            <tr>
+              <td><b>${dh.MaDH}</b></td>
+              <td>${dh.TenKH || 'Khách hàng'}</td>
+              <td>${dh.SDT || '-'}<br><small style="color:#666;">${getAddrByPhone(db, dh.SDT)}</small></td>
+              <td>${dh.SanPham}</td>
+              <td><b>${dh.SoLuong}</b></td>
+              <td>${maHTXDisplay}</td>
+              <td>
+                <input type="text" class="table-input" value="${dh.NguoiGiaoHang || ''}" placeholder="Tên nhân viên..." onchange="window.updateShipperNameForOrder('${dh.MaDH}', this.value)">
+              </td>
+              <td>
+                <input type="text" class="table-input" style="width:110px;" value="${dh.SdtShipper || ''}" placeholder="SĐT người giao..." onchange="window.updateShipperPhoneForOrder('${dh.MaDH}', this.value)">
+              </td>
+              <td>${statusBadge}</td>
+              <td>
+                <button class="btn btn-outline" style="padding:3px 8px; font-size:11px;" onclick="window.runAIMatcher('${dh.MaDH}')">Gợi ý nguồn hàng</button>
+                <button class="btn btn-secondary" style="padding:3px 8px; font-size:11px;" onclick="window.advanceOrderStatus('${dh.MaDH}')">🚚 Chuyển Trạng Thái</button>
+                <button class="btn" style="padding:3px 8px; font-size:11px; background:#e53935;" onclick="window.deleteOrder('${dh.MaDH}')">Xóa</button>
+              </td>
+            </tr>
+          `;
+        });
+
+        // Farmers
+        const farmTbody = document.getElementById('farmers-tbody');
+        farmTbody.innerHTML = '';
+        db.NongDan.forEach(f => {
+          const htxCode = getOrAssignHTXCodeForFarmer(db, f);
+          farmTbody.innerHTML += `
+            <tr>
+              <td><b>${f.MaND}</b></td>
+              <td><b style="color:var(--primary);">${htxCode}</b></td>
+              <td><b>${f.TenND}</b></td>
+              <td>${f.SDT}</td>
+              <td>${f.DiaChi}</td>
+              <td><b style="color:var(--primary);">${f.SanLuongAvailable} kg</b></td>
+              <td>
+                <button class="btn" style="padding:3px 8px; font-size:11px; background:#e53935;" onclick="window.deleteFarmer('${f.MaND}')">Xóa</button>
+              </td>
+            </tr>
+          `;
+        });
+
+        // Customers
+        const custTbody = document.getElementById('customers-tbody');
+        custTbody.innerHTML = '';
+        db.KhachHang.forEach(c => {
+          custTbody.innerHTML += `
+            <tr>
+              <td><b>${c.MaKH}</b></td>
+              <td>${c.TenKH}</td>
+              <td>${c.SDT}</td>
+              <td>${c.DiaChi}</td>
+              <td>
+                <button class="btn" style="padding:3px 8px; font-size:11px; background:#e53935;" onclick="window.deleteCustomer('${c.MaKH}')">Xóa</button>
+              </td>
+            </tr>
+          `;
+        });
+
+        // Harvest
+        const harvTbody = document.getElementById('harvest-tbody');
+        harvTbody.innerHTML = '';
+        db.LichThuHoạch.forEach(l => {
+          const nd = db.NongDan.find(n => n.MaND === l.MaND) || { TenND: 'Chưa rõ' };
+          const statusBadge = getStatusBadge(l.GhiChu || 'Sẵn sàng giao');
+
+          harvTbody.innerHTML += `
+            <tr>
+              <td><b>${l.MaLich}</b></td>
+              <td>${l.MaDH}</td>
+              <td><b style="color:var(--primary);">${l.MaHTX || '-'}</b></td>
+              <td><b>${nd.TenND}</b></td>
+              <td>${l.SanPham}</td>
+              <td>${l.SoLuong} kg</td>
+              <td>${l.NgayThuHoach}</td>
+              <td>
+                <input type="text" class="table-input" value="${l.NguoiGiaoHang || ''}" placeholder="Tên nhân viên..." onchange="window.updateShipperNameForHarvest('${l.MaLich}', this.value)">
+              </td>
+              <td>
+                <input type="text" class="table-input" style="width:110px;" value="${l.SdtShipper || ''}" placeholder="SĐT nhân viên..." onchange="window.updateShipperPhoneForHarvest('${l.MaLich}', this.value)">
+              </td>
+              <td>${statusBadge}</td>
+              <td>
+                <button class="btn btn-secondary" style="padding:3px 8px; font-size:11px;" onclick="window.completeHarvest('${l.MaLich}')">✅ Hoàn Tất Giao</button>
+                <button class="btn" style="padding:3px 8px; font-size:11px; background:#e53935;" onclick="window.deleteHarvest('${l.MaLich}')">Xóa</button>
+              </td>
+            </tr>
+          `;
+        });
+      }
+
+      function getStatusBadge(status) {
+        if(status === 'Đã hoàn tất' || status === 'Hoàn tất') return '<span class="badge badge-success">Đã hoàn tất</span>';
+        if(status === 'Đang giao hàng' || status === 'Đang giao') return '<span class="badge badge-shipping">Đang giao hàng</span>';
+        if(status === 'Đã xác nhận' || status === 'Sẵn sàng giao') return '<span class="badge badge-success">Sẵn sàng giao</span>';
+        return `<span class="badge badge-warning">${status || 'Chờ xử lý'}</span>`;
+      }
+
+      function getAddrByPhone(db, phone) {
+        const c = db.KhachHang.find(k => k.SDT === phone);
+        return c ? c.DiaChi : 'Xã Bình Mỹ, Huyện Củ Chi, TP.HCM';
+      }
+
+      window.updateShipperNameForOrder = function(maDH, name) {
+        const db = getDB();
+        const dh = db.DonHang.find(d => d.MaDH === maDH);
+        if(dh) {
+          dh.NguoiGiaoHang = name;
+          const lth = db.LichThuHoạch.find(l => l.MaDH === maDH);
+          if(lth) lth.NguoiGiaoHang = name;
+          saveDB(db);
+        }
+      };
+
+      window.updateShipperPhoneForOrder = function(maDH, phone) {
+        const db = getDB();
+        const dh = db.DonHang.find(d => d.MaDH === maDH);
+        if(dh) {
+          dh.SdtShipper = phone;
+          const lth = db.LichThuHoạch.find(l => l.MaDH === maDH);
+          if(lth) lth.SdtShipper = phone;
+          saveDB(db);
+        }
+      };
+
+      window.updateShipperNameForHarvest = function(maLich, name) {
+        const db = getDB();
+        const lth = db.LichThuHoạch.find(l => l.MaLich === maLich);
+        if(lth) {
+          lth.NguoiGiaoHang = name;
+          const dh = db.DonHang.find(d => d.MaDH === lth.MaDH);
+          if(dh) dh.NguoiGiaoHang = name;
+          saveDB(db);
+        }
+      };
+
+      window.updateShipperPhoneForHarvest = function(maLich, phone) {
+        const db = getDB();
+        const lth = db.LichThuHoạch.find(l => l.MaLich === maLich);
+        if(lth) {
+          lth.SdtShipper = phone;
+          const dh = db.DonHang.find(d => d.MaDH === lth.MaDH);
+          if(dh) dh.SdtShipper = phone;
+          saveDB(db);
+        }
+      };
+
+      window.autoFillHTXCodeByFarmer = function(maND) {
+        if(!maND) {
+          document.getElementById('h-htx').value = '';
+          return;
+        }
+        const db = getDB();
+        const farmer = db.NongDan.find(f => f.MaND === maND);
+        if(farmer) {
+          const code = getOrAssignHTXCodeForFarmer(db, farmer);
+          document.getElementById('h-htx').value = code;
+        }
+      };
+
+      window.autoFillHarvestFormByOrder = function(maDH) {
+        if(!maDH) return;
+        const db = getDB();
+        const dh = db.DonHang.find(d => d.MaDH === maDH);
+        if(dh) {
+          document.getElementById('h-product').value = dh.SanPham;
+          document.getElementById('h-qty').value = dh.SoLuong;
+          document.getElementById('h-date').value = dh.NgayGiao;
+
+          if(dh.NguoiGiaoHang && dh.NguoiGiaoHang !== '-') {
+            document.getElementById('h-shipper-name').value = dh.NguoiGiaoHang;
+          }
+          if(dh.SdtShipper && dh.SdtShipper !== '-') {
+            document.getElementById('h-shipper-phone').value = dh.SdtShipper;
+          }
+
+          const lth = db.LichThuHoạch.find(l => l.MaDH === maDH);
+          if(lth && lth.MaND) {
+            document.getElementById('h-farmer-select').value = lth.MaND;
+            window.autoFillHTXCodeByFarmer(lth.MaND);
+          }
+        }
+      };
+
+      window.openHarvestModal = function() {
+        const db = getDB();
+        const ordSelect = document.getElementById('h-order-select');
+        const farmSelect = document.getElementById('h-farmer-select');
+
+        ordSelect.innerHTML = '<option value="">-- Chọn Đơn Hàng Để Gán --</option>';
+        db.DonHang.forEach(d => {
+          ordSelect.innerHTML += `<option value="${d.MaDH}">${d.MaDH} - ${d.TenKH} (${d.SoLuong}kg)</option>`;
+        });
+
+        farmSelect.innerHTML = '<option value="">-- Chọn Nông Dân Thu Hoạch --</option>';
+        db.NongDan.forEach(f => {
+          const code = getOrAssignHTXCodeForFarmer(db, f);
+          farmSelect.innerHTML += `<option value="${f.MaND}">${f.TenND} - Mã: ${code} (${f.SanLuongAvailable}kg)</option>`;
+        });
+
+        document.getElementById('h-htx').value = '';
+        document.getElementById('h-date').value = "2026-10-10";
+        document.getElementById('new-harvest-card').style.display = 'block';
+      };
+
+      window.closeHarvestModal = function() {
+        document.getElementById('new-harvest-card').style.display = 'none';
+      };
+
+      window.handleCreateHarvest = function(e) {
+        e.preventDefault();
+        const db = getDB();
+        const maDH = document.getElementById('h-order-select').value || ("BM" + Math.floor(1000 + Math.random() * 9000));
+        const maND = document.getElementById('h-farmer-select').value;
+        const farmer = db.NongDan.find(f => f.MaND === maND);
+        if(!farmer) {
+          alert("Vui lòng chọn nông dân thu hoạch!");
+          return;
+        }
+
+        const maHTX = getOrAssignHTXCodeForFarmer(db, farmer);
+        const product = document.getElementById('h-product').value;
+        const qty = parseInt(document.getElementById('h-qty').value);
+        const date = document.getElementById('h-date').value;
+        const shipperName = document.getElementById('h-shipper-name').value || "Shipper HTX Bình Mỹ";
+        const shipperPhone = document.getElementById('h-shipper-phone').value || "0912.345.678";
+        const status = document.getElementById('h-status').value;
+
+        const newLichID = "LTH00" + (db.LichThuHoạch.length + 1);
+
+        db.LichThuHoạch.push({
+          MaLich: newLichID,
+          MaDH: maDH,
+          MaND: maND,
+          MaHTX: maHTX,
+          SanPham: product,
+          SoLuong: qty,
+          NgayThuHoach: date,
+          NguoiGiaoHang: shipperName,
+          SdtShipper: shipperPhone,
+          GhiChu: status
+        });
+
+        let dh = db.DonHang.find(d => d.MaDH === maDH);
+        if(dh) {
+          dh.MaHTX = maHTX;
+          dh.NguoiGiaoHang = shipperName;
+          dh.SdtShipper = shipperPhone;
+          dh.TrangThai = (status === 'Đã hoàn tất') ? 'Đã hoàn tất' : 'Sẵn sàng giao';
+        }
+
+        saveDB(db);
+        window.closeHarvestModal();
+        alert(`✅ Đã tạo lịch thu hoạch ${newLichID} cho Nông dân ${farmer.TenND} với Nhân viên giao hàng: ${shipperName} (${shipperPhone})!`);
+      };
+
+      window.deleteHarvest = function(maLich) {
+        if(confirm(`Xóa lịch thu hoạch ${maLich}?`)) {
+          const db = getDB();
+          db.LichThuHoạch = db.LichThuHoạch.filter(l => l.MaLich !== maLich);
+          saveDB(db);
+        }
+      };
+
+      window.advanceOrderStatus = function(maDH) {
+        const db = getDB();
+        const dh = db.DonHang.find(d => d.MaDH === maDH);
+        if(!dh) return;
+
+        if(dh.TrangThai === 'Mới tạo' || dh.TrangThai === 'Chờ xác nhận') {
+          dh.TrangThai = 'Sẵn sàng giao';
+        } else if(dh.TrangThai === 'Sẵn sàng giao' || dh.TrangThai === 'Đã xác nhận') {
+          dh.TrangThai = 'Đang giao hàng';
+        } else if(dh.TrangThai === 'Đang giao hàng') {
+          dh.TrangThai = 'Đã hoàn tất';
+        } else {
+          dh.TrangThai = 'Đã hoàn tất';
+        }
+
+        const lth = db.LichThuHoạch.find(l => l.MaDH === maDH);
+        if(lth) lth.GhiChu = dh.TrangThai;
+
+        saveDB(db);
+      };
+
+      window.completeHarvest = function(maLich) {
+        const db = getDB();
+        const lth = db.LichThuHoạch.find(l => l.MaLich === maLich);
+        if(lth) {
+          lth.GhiChu = 'Đã hoàn tất';
+          const dh = db.DonHang.find(d => d.MaDH === lth.MaDH);
+          if(dh) dh.TrangThai = 'Đã hoàn tất';
+          saveDB(db);
+          alert(`✅ Đã cập nhật lịch thu hoạch ${maLich} và Đơn hàng ${lth.MaDH} thành Đã hoàn tất!`);
+        }
+      };
+
+      window.openNewOrderModal = function() { document.getElementById('new-order-card').style.display = 'block'; };
+      window.closeNewOrderModal = function() { document.getElementById('new-order-card').style.display = 'none'; };
+
+      window.handleCustomerOrder = function(e) {
+        e.preventDefault();
+        const db = getDB();
+        const newDHID = "BM" + Math.floor(1000 + Math.random() * 9000);
+        const newKHID = "KH" + Math.floor(1000 + Math.random() * 9000);
+
+        const name = document.getElementById('ord-customer-name').value.trim();
+        if(!isValidName(name)) {
+          alert("⚠️ Họ và tên khách hàng không hợp lệ (không được chứa chữ số)!");
+          return;
+        }
+
+        const phone = document.getElementById('ord-customer-phone').value.trim();
+        const address = document.getElementById('ord-address').value.trim();
+        const shipperName = document.getElementById('ord-shipper-name').value.trim() || "Shipper HTX Bình Mỹ";
+        const shipperPhone = document.getElementById('ord-shipper-phone').value.trim() || "0912.345.678";
+
+        let existingCust = db.KhachHang.find(k => k.SDT === phone);
+        let custID = existingCust ? existingCust.MaKH : newKHID;
+
+        if (!existingCust) {
+          db.KhachHang.push({
+            MaKH: custID,
+            TenKH: name,
+            SDT: phone,
+            DiaChi: address
+          });
+        }
+
+        const newOrder = {
+          MaDH: newDHID,
+          MaKH: custID,
+          TenKH: name,
+          SDT: phone,
+          SanPham: document.getElementById('ord-product').value,
+          SoLuong: parseInt(document.getElementById('ord-qty').value),
+          NgayGiao: document.getElementById('ord-date').value || "2026-10-15",
+          MaHTX: "-",
+          NguoiGiaoHang: shipperName,
+          SdtShipper: shipperPhone,
+          TrangThai: "Mới tạo"
+        };
+
+        db.DonHang.push(newOrder);
+        saveDB(db);
+        window.closeNewOrderModal();
+
+        document.getElementById('ord-customer-name').value = '';
+        document.getElementById('ord-customer-phone').value = '';
+
+        alert(`✅ Đã thêm thành công đơn hàng ${newDHID} phân công cho Nhân viên giao hàng ${shipperName}!`);
+      };
+
+      window.deleteOrder = function(maDH) {
+        if(confirm(`Xóa đơn hàng ${maDH}?`)) {
+          const db = getDB();
+          db.DonHang = db.DonHang.filter(d => d.MaDH !== maDH);
+          db.LichThuHoạch = db.LichThuHoạch.filter(l => l.MaDH !== maDH);
+          saveDB(db);
+        }
+      };
+
+      window.handleAddFarmer = function(e) {
+        e.preventDefault();
+        const name = document.getElementById('f-name').value.trim();
+        if(!isValidName(name)) {
+          alert("⚠️ Họ tên nông dân không hợp lệ (không được chứa chữ số)!");
+          return;
+        }
+
+        const db = getDB();
+        const newID = "ND00" + (db.NongDan.length + 1);
+        const newFarmer = {
+          MaND: newID,
+          MaHTX: "",
+          TenND: name,
+          SDT: document.getElementById('f-phone').value,
+          DiaChi: document.getElementById('f-address').value,
+          SanLuongAvailable: parseInt(document.getElementById('f-qty').value)
+        };
+
+        const assignedHTX = getOrAssignHTXCodeForFarmer(db, newFarmer);
+        db.NongDan.push(newFarmer);
+        saveDB(db);
+        document.getElementById('f-name').value = '';
+        alert(`✅ Đã thêm nông dân ${newFarmer.TenND} thành công với Mã HTX gán cố định: ${assignedHTX}!`);
+      };
+
+      window.deleteFarmer = function(maND) {
+        if(confirm(`Xóa nông dân ${maND}?`)) {
+          const db = getDB();
+          db.NongDan = db.NongDan.filter(n => n.MaND !== maND);
+          saveDB(db);
+        }
+      };
+
+      window.handleAddCustomer = function(e) {
+        e.preventDefault();
+        const name = document.getElementById('c-name').value.trim();
+        if(!isValidName(name)) {
+          alert("⚠️ Họ và tên khách hàng không hợp lệ (không được chứa chữ số)!");
+          return;
+        }
+
+        const db = getDB();
+        const newID = "KH00" + (db.KhachHang.length + 1);
+        const newCustomer = {
+          MaKH: newID,
+          TenKH: name,
+          SDT: document.getElementById('c-phone').value,
+          DiaChi: document.getElementById('c-address').value
+        };
+        db.KhachHang.push(newCustomer);
+        saveDB(db);
+        document.getElementById('c-name').value = '';
+        alert(`✅ Đã thêm khách hàng ${newCustomer.TenKH} thành công!`);
+      };
+
+      window.deleteCustomer = function(maKH) {
+        if(confirm(`Xóa khách hàng ${maKH}?`)) {
+          const db = getDB();
+          db.KhachHang = db.KhachHang.filter(k => k.MaKH !== maKH);
+          saveDB(db);
+        }
+      };
+
+      window.runAIMatcher = function(maDH) {
+        const db = getDB();
+        const dh = db.DonHang.find(d => d.MaDH === maDH);
+        if(!dh) return;
+
+        document.getElementById('match-order-id').innerText = maDH;
+        const listDiv = document.getElementById('ai-match-list');
+        listDiv.innerHTML = '';
+
+        const candidates = db.NongDan.filter(n => n.SanLuongAvailable >= dh.SoLuong);
+
+        if(candidates.length === 0) {
+          listDiv.innerHTML = `<p style="color:red; font-size:13px;">❌ Không có nguồn hàng nông dân nào có đủ ${dh.SoLuong}kg sản lượng khả dụng!</p>`;
+        } else {
+          candidates.forEach(c => {
+            const htxCode = getOrAssignHTXCodeForFarmer(db, c);
+            listDiv.innerHTML += `
+              <div style="display:flex; justify-content:space-between; align-items:center; padding:10px; background:#f9f9f9; border-radius:8px; margin-bottom:8px;">
+                <div>
+                  <b>${c.TenND}</b> (${c.DiaChi})<br>
+                  <small style="color:#666;">Mã HTX Cố Định: <b style="color:var(--primary);">${htxCode}</b> | Sản lượng sẵn có: <b>${c.SanLuongAvailable} kg</b></small>
+                </div>
+                <button class="btn btn-secondary" onclick="window.assignFarmerToOrder('${maDH}', '${c.MaND}')">Gán & Tạo Lịch Thu Hoạch</button>
+              </div>
+            `;
+          });
+        }
+
+        document.getElementById('ai-match-card').style.display = 'block';
+      };
+
+      window.assignFarmerToOrder = function(maDH, maND) {
+        const db = getDB();
+        const dh = db.DonHang.find(d => d.MaDH === maDH);
+        const nd = db.NongDan.find(n => n.MaND === maND);
+
+        if(dh && nd) {
+          const htxCode = getOrAssignHTXCodeForFarmer(db, nd);
+          dh.MaHTX = htxCode;
+          dh.TrangThai = "Sẵn sàng giao";
+          if(!dh.NguoiGiaoHang || dh.NguoiGiaoHang === '-') {
+            dh.NguoiGiaoHang = "Shipper HTX Bình Mỹ";
+            dh.SdtShipper = "0912.345.678";
+          }
+
+          const newLichID = "LTH00" + (db.LichThuHoạch.length + 1);
+          db.LichThuHoạch.push({
+            MaLich: newLichID,
+            MaDH: maDH,
+            MaND: maND,
+            MaHTX: htxCode,
+            SanPham: dh.SanPham,
+            SoLuong: dh.SoLuong,
+            NgayThuHoach: dh.NgayGiao,
+            NguoiGiaoHang: dh.NguoiGiaoHang,
+            SdtShipper: dh.SdtShipper || "0912.345.678",
+            GhiChu: "Sẵn sàng giao"
+          });
+
+          saveDB(db);
+          document.getElementById('ai-match-card').style.display = 'none';
+          alert(`✅ Đã gán đơn hàng ${maDH} cho nguồn hàng nông dân ${nd.TenND} với Mã HTX cố định: ${htxCode}!`);
+        }
+      };
+
+      window.onload = function() {
+        renderAll();
+      };
+    })();
+  </script>
+</body>
+</html>
